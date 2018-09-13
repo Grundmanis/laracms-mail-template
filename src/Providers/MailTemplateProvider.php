@@ -2,13 +2,10 @@
 
 namespace Grundmanis\Laracms\Modules\MailTemplate\Providers;
 
-use Grundmanis\Laracms\Modules\Pages\Exception\Handler;
-use Illuminate\Contracts\Debug\ExceptionHandler;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
 use Grundmanis\Laracms\Facades\MenuFacade;
 
-class MailTemplatesProvider extends ServiceProvider
+class MailTemplateProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.

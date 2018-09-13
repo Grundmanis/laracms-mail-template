@@ -1,37 +1,5 @@
 @extends('laracms.dashboard::layouts.app')
 
-@section('styles')
-
-    <!-- Include external CSS. -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet"
-          type="text/css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.css">
-
-    <!-- Include Editor style. -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.3/css/froala_editor.pkgd.min.css"
-          rel="stylesheet" type="text/css"/>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.3/css/froala_style.min.css" rel="stylesheet"
-          type="text/css"/>
-
-@endsection
-
-@section('scripts')
-    <!-- Include external JS libs. -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script type="text/javascript"
-            src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.js"></script>
-    <script type="text/javascript"
-            src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js"></script>
-
-    <!-- Include Editor JS files. -->
-    <script type="text/javascript"
-            src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.3/js/froala_editor.pkgd.min.js"></script>
-
-    <script> $(function () {
-            $('textarea').froalaEditor()
-        }); </script>
-@endsection
-
 @section('content')
 
     <nav class="navbar navbar-default">
@@ -43,7 +11,7 @@
                     <span class="icon-bar bar2"></span>
                     <span class="icon-bar bar3"></span>
                 </button>
-                <a class="navbar-brand" href="#">Newsletter</a>
+                <a class="navbar-brand" href="#">Mail Templates</a>
             </div>
             @include('laracms.dashboard::partials.topnav')
         </div>
@@ -51,35 +19,41 @@
 
     <div class="content">
         <div class="container-fluid">
-            <form method="post">
-                {{ csrf_field() }}
 
-                <div class="form-group row">
-                    <label for="to" class="col-md-4 col-form-label text-md-right">{{ __('form.to') }}</label>
-                    <div class="col-md-6">
-                        <select class="form-control" name="to" id="to">
-                            <option value="buyers">Buyers</option>
-                            <option value="sellers">Sellers</option>
-                        </select>
-                    </div>
-                </div>
+            <div class="form-group">
+                <a class="btn btn-success" href="{{ route('laracms.mail-template.create') }}">Create</a>
+            </div>
 
-                <div class="form-group row">
-                    <label for="subject" class="col-md-4 col-form-label text-md-right">{{ __('form.subject') }}</label>
-                    <div class="col-md-6">
-                        <input type="text" class="form-control" id="subject" name="subject">
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="message" class="col-md-4 col-form-label text-md-right">{{ __('form.message') }}</label>
-                    <div class="col-md-6">
-                        <textarea class="form-control" id="message" name="message"></textarea>
-                    </div>
-                </div>
-
-                <button type="submit" class="btn btn-primary">Send</button>
-            </form>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Icon</th>
+                            <th>Title</th>
+                            <th>Created at</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($templates as $template)
+                        <tr>
+                            <td>{{ $template->id }}</td>
+                            <td><img width="100" src="{{ asset($template->icon) }}" alt=""></td>
+                            <td>{{ $template->title }}</td>
+                            <td>{{ $template->created_at }}</td>
+                            <td>
+                                <a href="{{ route('laracms.mail-template.edit', $template->id) }}">Edit</a>
+                                |
+                                <a onclick="return confirm('Are you sure?')"
+                                   href="{{ route('laracms.mail-template.destroy', $template->id) }}">Delete</a>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+                {{ $templates->links() }}
+            </div>
         </div>
     </div>
 @endsection
