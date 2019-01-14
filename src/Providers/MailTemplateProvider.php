@@ -32,7 +32,7 @@ class MailTemplateProvider extends ServiceProvider
     private function addMenuRoutes()
     {
         $menu = [
-            'Mail Template' => 'laracms.mail-template',
+            'admin.menu.mail-template' => 'laracms.mail-template',
         ];
 
         MenuFacade::addMenu($menu);

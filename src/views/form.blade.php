@@ -1,7 +1,5 @@
 @extends('laracms.dashboard::layouts.app', ['page' => 'Mail Templates'])
 
-@include('laracms.dashboard::partials.summernote')
-
 @section('content')
     <form enctype="multipart/form-data" method="POST">
         @csrf
@@ -38,9 +36,7 @@
                     @foreach($locales as $key => $locale)
                         <div class="tab-pane @if(!$key) active @endif" id="title_{{ $locale }}">
                             <div class="form-group">
-                            <textarea class="summernote" name="{{ $locale }}[title]">
-                                {{ formValue($template ?? null, 'title', $locale) }}
-                            </textarea>
+                                <textarea class="form-control" name="{{ $locale }}[title]">{{ formValue($template ?? null, 'title', $locale) }}</textarea>
                             </div>
                         </div>
                     @endforeach
@@ -66,9 +62,7 @@
                     @foreach($locales as $key => $locale)
                         <div class="tab-pane @if(!$key) active @endif" id="{{ $locale }}">
                             <div class="form-group">
-                                <textarea class="summernote" name="{{ $locale }}[body]">
-                                    {{ formValue($template ?? null, 'body', $locale) }}
-                                </textarea>
+                                <textarea class="form-control" name="{{ $locale }}[body]">{{ formValue($template ?? null, 'body', $locale) }}</textarea>
                             </div>
                         </div>
                     @endforeach
