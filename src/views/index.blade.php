@@ -1,8 +1,8 @@
-@extends('laracms.dashboard::layouts.app', ['page' => 'Mail Templates'])
+@extends('laracms.dashboard::layouts.app', ['page' => __('admin.menu.mail-template')])
 
 @section('content')
     <div class="form-group">
-        <a class="btn btn-success" href="{{ route('laracms.mail-template.create') }}">Create</a>
+        <a class="btn btn-success" href="{{ route('laracms.mail-template.create') }}">{{ __('texts.create') }}</a>
     </div>
 
     <div class="table-responsive">
@@ -10,9 +10,9 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Icon</th>
-                    <th>Title</th>
-                    <th>Created at</th>
+                    <th>{{ __('texts.icon') }}</th>
+                    <th>{{ __('texts.title') }}</th>
+                    <th>{{ __('texts.created_at') }}</th>
                     <th></th>
                 </tr>
             </thead>
@@ -24,10 +24,10 @@
                     <td>{{ $template->title }}</td>
                     <td>{{ $template->created_at }}</td>
                     <td>
-                        <a href="{{ route('laracms.mail-template.edit', $template->id) }}">Edit</a>
+                        <a href="{{ route('laracms.mail-template.edit', $template->id) }}">{{ __('texts.edit') }}</a>
                         |
                         <a onclick="return confirm('Are you sure?')"
-                           href="{{ route('laracms.mail-template.destroy', $template->id) }}">Delete</a>
+                           href="{{ route('laracms.mail-template.destroy', $template->id) }}">{{ __('texts.delete') }}</a>
                     </td>
                 </tr>
             @endforeach

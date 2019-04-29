@@ -1,4 +1,4 @@
-@extends('laracms.dashboard::layouts.app', ['page' => 'Mail Templates'])
+@extends('laracms.dashboard::layouts.app', ['page' => __('admin.menu.mail-template')])
 
 @section('content')
     <form enctype="multipart/form-data" method="POST">
@@ -31,7 +31,7 @@
                 </div>
                 <!-- Tab panes -->
                 <div class="tab-content">
-                    <label title="value">Title</label>
+                    <label title="value">{{ __('texts.title') }}</label>
 
                     @foreach($locales as $key => $locale)
                         <div class="tab-pane @if(!$key) active @endif" id="title_{{ $locale }}">
@@ -57,7 +57,7 @@
                 </div>
                 <!-- Tab panes -->
                 <div class="tab-content">
-                    <label title="value">Value</label>
+                    <label title="value">{{ __('texts.value') }}</label>
 
                     @foreach($locales as $key => $locale)
                         <div class="tab-pane @if(!$key) active @endif" id="{{ $locale }}">
