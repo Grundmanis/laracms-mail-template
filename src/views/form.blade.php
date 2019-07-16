@@ -1,81 +1,65 @@
-@extends('laracms.dashboard::layouts.app', ['page' => __('admin.menu.mail-template')])
+@extends(view()->exists('laracms.dashboard.layouts.app') ? 'laracms.dashboard.layouts.app' : 'laracms.dashboard::layouts.app', ['page' => __('laracms::admin.menu.mail-template')] )
 
 @section('content')
     <form enctype="multipart/form-data" method="POST">
         @csrf
-        <div class="row">
-            <div class="col-md-12">
-
-                <div class="form-group row">
-                    <label for="image" class="col-md-4 col-form-label text-md-right">{{ __('form.icon') }}</label>
-                    <div class="col-md-6">
-                        <input class="form-control" id="icon" type="file" name="icon">
-                    </div>
-                    @if(isset($template))
-                        <img width="300" src="{{ asset($template->icon) }}" alt="">
-                    @endif
-                </div>
-
-
-                <!-- Nav tabs -->
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">{{ __('laracms::admin.menu.mail-template') }}</h4>
+            </div>
+            <div class="card-body">
                 <div class="form-group">
-                    <ul class="nav nav-tabs" role="tablist">
-                        @foreach($locales as $key => $locale)
-                            <li role="presentation" @if(!$key) class="active" @endif>
-                                <a href="#title_{{ $locale }}" data-toggle="tab">
-                                    {{ $locale }}
-                                </a>
-                            </li>
-                        @endforeach
-                    </ul>
+                    <label for="image" class="col-form-label text-md-right">{{ __('laracms::admin.icon') }}</label>
+                    <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                        <div class="fileinput-new thumbnail">
+                            @if(isset($template))
+                                <img src="{{ asset($template->icon) }}" alt="">
+                            @else
+                                <img src="{{ asset('laracms_assets/img/image_placeholder.jpg') }}" alt="...">
+                            @endif
+                        </div>
+                        <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                        <div>
+                        <span class="btn btn-rose btn-round btn-file">
+                          <span class="fileinput-new">{{ __('laracms::admin.select_image') }}</span>
+                          <span class="fileinput-exists">{{ __('laracms::admin.change') }}</span>
+                          <input name="icon" type="file" id="image" />
+                        </span>
+                            <a href="#" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput">
+                                <i class="fa fa-times"></i> {{ __('laracms::admin.remove') }}</a>
+                        </div>
+                    </div>
                 </div>
-                <!-- Tab panes -->
-                <div class="tab-content">
-                    <label title="value">{{ __('texts.title') }}</label>
-
+                <div class="nav-tabs-navigation">
+                    <div class="nav-tabs-wrapper">
+                        <ul id="tabs" class="nav nav-tabs" role="tablist">
+                            @foreach($locales as $key => $locale)
+                                <li class="nav-item">
+                                    <a class="nav-link @if(!$key) active @endif" data-toggle="tab" href="#{{ $locale }}"
+                                       role="tab" aria-expanded="true">{{ $locale }}</a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+                <div id="my-tab-content" class="tab-content text-center">
                     @foreach($locales as $key => $locale)
-                        <div class="tab-pane @if(!$key) active @endif" id="title_{{ $locale }}">
+                        <div class="tab-pane @if(!$key) active @endif" id="{{ $locale }}" role="tabpanel"
+                             aria-expanded="true">
                             <div class="form-group">
+                                <label title="title">{{ __('laracms::admin.title') }}</label>
                                 <textarea class="form-control" name="{{ $locale }}[title]">{{ formValue($template ?? null, 'title', $locale) }}</textarea>
                             </div>
-                        </div>
-                    @endforeach
-                </div>
-
-
-                <!-- Nav tabs -->
-                <div class="form-group">
-                    <ul class="nav nav-tabs" role="tablist">
-                        @foreach($locales as $key => $locale)
-                            <li role="presentation" @if(!$key) class="active" @endif>
-                                <a href="#{{ $locale }}" data-toggle="tab">
-                                    {{ $locale }}
-                                </a>
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
-                <!-- Tab panes -->
-                <div class="tab-content">
-                    <label title="value">{{ __('texts.value') }}</label>
-
-                    @foreach($locales as $key => $locale)
-                        <div class="tab-pane @if(!$key) active @endif" id="{{ $locale }}">
                             <div class="form-group">
+                                <label title="value">{{ __('laracms::admin.value') }}</label>
                                 <textarea class="form-control" name="{{ $locale }}[body]">{{ formValue($template ?? null, 'body', $locale) }}</textarea>
                             </div>
                         </div>
                     @endforeach
                 </div>
-
-                <div class="form-group row mb-0">
-                    <div class="col-md-6 offset-md-4">
-                        <button type="submit" class="btn btn-primary">
-                            {{ __('menu.save') }}
-                        </button>
-                    </div>
-                </div>
             </div>
         </div>
+        <button type="submit" class="btn btn-primary">{{ __('laracms::admin.save') }}</button>
+
     </form>
 @endsection

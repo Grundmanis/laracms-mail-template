@@ -3,7 +3,6 @@
 namespace Grundmanis\Laracms\Modules\MailTemplate\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Grundmanis\Laracms\Facades\MenuFacade;
 
 class MailTemplateProvider extends ServiceProvider
 {
@@ -26,16 +25,6 @@ class MailTemplateProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->addMenuRoutes();
+        //
     }
-
-    private function addMenuRoutes()
-    {
-        $menu = [
-            'admin.menu.mail-template' => 'laracms.mail-template',
-        ];
-
-        MenuFacade::addMenu($menu);
-    }
-
 }
