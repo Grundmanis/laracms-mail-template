@@ -60,6 +60,5 @@
             </div>
         </div>
         <button type="submit" class="btn btn-primary">{{ __('laracms::admin.save') }}</button>
-
     </form>
 @endsection
